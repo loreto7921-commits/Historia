@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diseño y Vida Moderna — Década del 50</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --accent:#d2a84b;
+  --bg:#f8f7f5;
+  --dark:#1a1a1a;
+  --muted:#666;
+}
+
+* {box-sizing:border-box;margin:0;padding:0}
+html,body {width:100%;overflow-x:hidden;background:var(--bg);font-family:'Roboto',sans-serif;color:var(--dark); scroll-behavior: smooth;}
+
+/* NAV */
+nav {
+  position:fixed;
+  top:0;left:0;right:0;
+  background:rgba(26,26,26,.9);
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:15px;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+nav a {
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  transition:.3s;
+  cursor:pointer;
+}
+nav a:hover {color:var(--accent);}
+
+/* HERO */
+.hero {
+  height:100vh;
+  background:url('imagenes/hero.jpg') center/cover no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  color:#fff;
+  text-align:center;
+}
+.hero::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.55);
+}
+.hero-content {
+  position:relative;
+  z-index:2;
+  max-width:700px;
+  padding:20px;
+}
+.hero-content h1 {
+  font-family:'Montserrat',sans-serif;
+  font-size:48px;
+  margin-bottom:15px;
+}
+.hero-content p {
+  margin-bottom:20px;
+  color:#eee;
+}
+.hero-content a {
+  background:var(--accent);
+  color:#fff;
+  padding:12px 30px;
+  border-radius:25px;
+  text-decoration:none;
+  font-weight:600;
+  transition:.3s;
+}
+.hero-content a:hover {background:#e3b758;}
+
+/* SECTION */
+section {
+  padding:100px 5%;
+  text-align:center;
+  background:#fff;
+  width:100%;
+}
+.text h2 {font-family:'Montserrat',sans-serif;font-size:32px;margin-bottom:10px;}
+.text p {color:var(--muted);margin-bottom:20px;}
+
+/* BOTÓN VER MÁS */
+.ver-mas-btn {
+  display:inline-block;
+  background:var(--accent);
+  color:#fff;
+  padding:10px 25px;
+  border-radius:25px;
+  cursor:pointer;
+  font-weight:600;
+  text-decoration:none;
+  transition:.3s;
+}
+.ver-mas-btn:hover {background:#e3b758;}
+
+/* GRID */
+.contenido {
+  display:none;
+  flex-wrap:wrap;
+  gap:18px;
+  justify-content:center;
+  margin-top:25px;
+  transition: max-height 0.5s ease;
+}
+.contenido.show {display:flex;}
+
+/* CARD */
+.card {
+  position:relative;
+  width:calc(20% - 18px);
+  background:#fafafa;
+  border:1px solid #ddd;
+  border-radius:12px;
+  overflow:visible; 
+  transition:transform .3s, box-shadow .3s;
+  text-align:center;
+  margin-bottom:20px;
+}
+.card:hover {transform:translateY(-6px); box-shadow:0 10px 25px rgba(0,0,0,.1);}
+.card img {width:100%; height:160px; object-fit:cover; display:block; cursor:pointer;}
+.card figcaption {padding:8px; font-size:14px; color:#555;}
+
+/* Overlay expandido */
+.card .overlay {
+  display:none;
+  padding:10px;
+  font-size:14px;
+  text-align:left;
+  line-height:1.4;
+  background:#fff;
+  color:#000;
+  position:relative;
+}
+.card:hover .overlay {display:block;}
+
+/* Arquitectura y Equipamientos: apilados verticales */
+#arquitectura .card, #equipamientos .card { width:80%; margin:0 auto 30px auto; }
+
+/* Lightbox */
+#lightbox {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+}
+#lightbox img {
+  max-width:90%;
+  max-height:85vh;
+  border-radius:10px;
+  box-shadow:0 0 20px rgba(255,255,255,0.2);
+}
+#lightbox span {
+  position:absolute;
+  top:20px;
+  right:40px;
+  color:#E6DBBE;
+  font-size:32px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:1200px){.card{width:calc(25% - 18px);} }
+@media(max-width:900px){.card{width:calc(33.33% - 18px);} }
+@media(max-width:600px){.card{width:85%;} }
+
+footer {
+  background:#111;
+  color:#ccc;
+  padding:25px;
+  text-align:center;
+  margin-top:40px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero">Inicio</a>
+  <a href="#mobiliario">Mobiliarios</a>
+  <a href="#arquitectura">Arquitectura</a>
+  <a href="#interiorismo">Interiorismo</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="background: url('imagenes/caratula1.jpg') center/cover no-repeat; height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; color: white; position: relative;">
+  <!-- Capa oscura sutil para mejorar lectura -->
+  <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35);"></div>
+
+  <div style="position: relative; z-index: 1; max-width: 800px;">
+    <h1 style="font-size: 2.8rem; margin-bottom: 20px;">Diseño y Vida Moderna — Década del 50</h1>
+    <p style="font-size: 1.2rem; margin-bottom: 40px;">Una síntesis entre arquitectura, mobiliario e interiorismo. Inspirado en la posguerra, la tecnología y el optimismo del “American way of life”.</p>
+    <a href="#mobiliario" style="background: #d2a84b; color: #fff; padding: 14px 34px; border-radius: 25px; text-decoration: none; font-weight: 600;">Ver proyectos</a>
+  </div>
+</section>
+
+<!-- MOBILIARIOS -->
+<section id="mobiliario">
+  <div class="text">
+    <h2>Mobiliarios icónicos</h2>
+    <p>Las piezas de mobiliario de los años 50 combinaban nuevas técnicas industriales con formas orgánicas, creando objetos funcionales, livianos y estéticamente modernos. Se destacaron las líneas simples, las curvas y la experimentación con materiales innovadores como plásticos moldeados, contrachapado curvado, aluminio y maderas claras. Cada mueble buscaba integrarse al hogar moderno, ofreciendo comodidad y practicidad sin sacrificar estilos.</p>
+    <span class="ver-mas-btn" data-target="mob">Ver más</span>
+  </div>
+
+  <div class="contenido" id="mob">
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla1.jpg.jpg" alt="Silla 699 Superleggera" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Silla 699 Superleggera</figcaption>
+        <div class="overlay">La silla 699 Superleggera, diseñada en 1957 por Gio Ponti, es una obra maestra del diseño italiano, símbolo de ligereza, equilibrio y perfección. Inspirada en la silla tradicional Chiavarine de Liguria, adopta sus principios de simplicidad, estabilidad y ligereza, añadiendo además la economía como valor clave tras la posguerra.
+Fabricada en madera de fresno con asiento de caña de la India, su estructura fue refinada hasta pesar solo 1,7 kg, con patas de apenas 18 mm de sección triangular. A pesar de su aspecto frágil, es extremadamente resistente —incluso soportó ser lanzada desde un cuarto piso sin romperse-
+Con el tiempo, la Superleggera se convirtió en un ícono del diseño industrial del siglo XX, perdiendo su carácter económico , pero manteniendo su diseño original.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla3.jpg.jpg" alt="Sillón Lady" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Sillón Lady</figcaption>
+        <div class="overlay">El sillón Lady, diseñado en 1951 por el arquitecto y diseñador Marco Zanuso, nació del interés del fabricante Pirelli por experimentar con su nueva espuma de látex aplicada al mobiliario. De esta colaboración surgió la empresa Arflex, que junto a Zanuso dio vida a una pieza que se transformó en un símbolo del diseño moderno italiano.El sillón Lady refleja perfectamente esos valores, ofreciendo una combinación única de confort, elegancia y ligereza visual.
+El diseño está compuesto por varias piezas fabricadas y tapizadas por separado, un método innovador para la época. Su estructura combina madera, muelles metálicos y un acolchado de poliuretano moldeado, lo que permitía un asiento más ergonómico y resistente.
+Con unas medidas de 86 × 78 × 85 cm, el sillón Lady fue galardonado con la Medalla de Oro en la IX Trienal de Milán (1951) y marcó un hito en el mobiliario contemporáneo de posguerra. Actualmente, es considerado una pieza icónica del diseño del siglo XX y forma parte de la colección permanente del MoMA de Nueva York.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla2.jpg.jpg" alt="Sillón Senior" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Sillón Senior</figcaption>
+        <div class="overlay">Diseñado por Marco Zanuso en 1951 para la firma Arflex, el Sillón Senior constituye una de las piezas más representativas del diseño italiano de la posguerra. Nació en el contexto de la colaboración entre Zanuso y la empresa Pirelli, interesada en aplicar sus nuevos materiales —como la espuma de látex y la gomaespuma moldeada— al campo del mobiliario.
+El resultado fue un sillón de líneas suaves y envolventes, que combina una estructura metálica interna con un acolchado flexible y tapizado en tela o cuero, otorgando gran confort y durabilidad. Su diseño orgánico y equilibrado refleja la búsqueda de Zanuso por integrar tecnología, ergonomía y estética moderna, marcando un punto de inflexión hacia la industrialización del diseño de muebles en Italia.
+El Sillón Senior, junto con el modelo Lady, consolidó el vínculo entre innovación material y forma contemporánea, convirtiéndose en un ícono del diseño racionalista humanizado de mediados del siglo XX.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla4.jpg" alt="Eames Lounge Chair & Ottoman" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Eames Lounge Chair & Ottoman</figcaption>
+        <div class="overlay">Diseñado por Charles y Ray Eames en 1956, el Eames Lounge Chair & Ottoman es un icono del diseño moderno estadounidense y un referente atemporal del mobiliario de lujo. Concebido como una reinterpretación del clásico sillón club, combina elegancia, confort y funcionalidad en una sola pieza. Su estructura está realizada en madera contrachapada moldeada, cuidadosamente curvada para adaptarse al cuerpo, mientras que sus cojines, tapizados en cuero genuino de alta calidad, ofrecen una experiencia ergonómica y acogedora. La base de aluminio pulido proporciona estabilidad y ligereza visual, y el reposapiés a juego complementa la postura natural, invitando al descanso. Cada detalle, desde los ángulos suaves del respaldo hasta la proporción de los apoyabrazos, refleja la innovación en materiales y diseño característica de los Eames. Producido por Herman Miller, sigue siendo una pieza icónica del diseño industrial del siglo XX, apreciada tanto por su estética refinada como por su confort excepcional.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla5.jpg" alt="Eames DSR" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Eames DSR</figcaption>
+        <div class="overlay">Nacida del deseo de crear una “silla para todos”, esta pieza fue la primera en fabricarse en serie con una sola carcasa de fibra de vidrio moldeada. Su forma ergonómica se adapta naturalmente al cuerpo, respondiendo a la filosofía de los Eames de diseñar para la vida real.
+Las múltiples bases intercambiables —metálica tipo “Eiffel”, de madera o de patín— ampliaban sus usos y configuraciones.
+La combinación entre innovación tecnológica, accesibilidad y estética amable la convirtió en un símbolo del diseño moderno democrático. Sentarse en ella implica una sensación de flexibilidad y suavidad, casi como si la estructura te acompañara en lugar de imponerse.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla6.jpg" alt="Silla Tulip" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Silla Tulip</figcaption>
+        <div class="overlay">Saarinen buscó eliminar lo que él llamaba el “confuso bosque de patas” bajo las mesas y sillas convencionales. La Tulip resuelve este problema con una base central única, de aluminio fundido, que sostiene un asiento moldeado de fibra de vidrio.
+Su perfil fluido y continuo expresa una pureza escultórica que difumina la frontera entre mueble y arquitectura.
+La experiencia de uso es ligera, casi flotante: al sentarse se percibe la estabilidad central, mientras la forma curvada abraza suavemente al usuario. Representa la búsqueda de Saarinen por la unidad total entre forma y función.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/mesa1.jpg" alt="Mesa Tulip" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Mesa Tulip</figcaption>
+        <div class="overlay">Complemento directo de la silla Tulip, la mesa repite la idea de pureza formal. El pedestal de aluminio pintado sostiene un sobre circular u oval, generalmente en mármol de Carrara o laminado blanco.
+Cada componente se integra visualmente en un gesto único, sin uniones visibles ni detalles superfluos.
+La experiencia espacial que genera es de orden, claridad y fluidez: permite que las sillas giren libremente y que el conjunto funcione como una sola pieza escultórica. Es la mesa más reconocible del modernismo orgánico estadounidense.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla7.jpg" alt="Silla Womb" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Silla Womb</figcaption>
+        <div class="overlay">Creada a pedido de Florence Knoll, quien deseaba una silla que permitiera “sentarse en muchas posiciones cómodas”, la Womb Chair fue un experimento pionero en confort psicológico.
+La carcasa de fibra de vidrio tapizada con lana o cuero, sobre base metálica, envuelve el cuerpo en un gesto maternal y protector.
+Su diseño, aunque racional, responde al deseo emocional de refugio: ofrece una sensación de abrigo sin perder modernidad. La Womb marcó el inicio del diseño orientado a la experiencia emocional, no solo funcional.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla8.jpg" alt="Silla Diamond" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Silla Diamond</figcaption>
+        <div class="overlay">Una obra maestra del diseño estructural. Bertoia, escultor de formación, transformó el acero industrial en una red tridimensional que combina ligereza y resistencia.
+Compuesta por varillas de acero soldadas, la silla parece un dibujo en el espacio. Su transparencia permite que el aire y la luz atraviesen la forma, reduciendo su peso visual.
+Aunque metálica, su ergonomía sorprende: el cuerpo se adapta a la malla con naturalidad. “El espacio atraviesa la silla —decía Bertoia—, no está hecha de masa, sino de aire.”
+Es tanto una escultura como un asiento: poética y racional al mismo tiempo.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla9.jpg" alt="Silla Ant" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Silla Ant</figcaption>
+        <div class="overlay">Diseñada para la empresa danesa Novo Nordisk, la Ant Chair fue una revolución técnica: una sola lámina de madera moldeada en tres dimensiones, sostenida por patas tubulares de acero.
+Su forma de “hormiga” responde tanto a la ergonomía como a la producción industrial. Jacobsen logra una silla ligera, apilable, resistente y visualmente dinámica.
+La experiencia de uso es ágil: acompaña el movimiento del cuerpo sin rigidez. Representa el inicio del diseño danés moderno, donde la calidez natural del material se une con la precisión funcional.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla10.jpg" alt="Silla Butterfly" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Silla Butterfly</figcaption>
+        <div class="overlay">Evolución directa de la Ant, esta silla amplía el respaldo y refina las curvas, alcanzando proporciones casi universales. Fabricada en contrachapado moldeado, con múltiples acabados, combina tecnología moderna y sensibilidad artesanal.
+Es una de las sillas más producidas en la historia. Su forma, adaptable a todo contexto, simboliza la democratización del diseño escandinavo.
+Sentarse en una Series 7 es sentir el equilibrio exacto entre flexibilidad y soporte: un diseño que desaparece para dejar hablar al cuerpo.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla11.jpg" alt="Silla Egg" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Silla Egg</figcaption>
+        <div class="overlay">La silla Egg, creada por Arne Jacobsen en 1958 para el SAS Royal Hotel en Copenhague, es uno de los íconos más reconocidos del diseño moderno escandinavo. Concebida como un contrapunto orgánico a la arquitectura geométrica del hotel, su forma envolvente y curvilínea ofrece confort y privacidad al usuario. Fabricada con espuma moldeada y tapizada, representó una innovación técnica en su época, combinando materiales modernos con una estética elegante y atemporal. Desde su lanzamiento, la Egg se ha convertido en un símbolo del mobiliario de posguerra, reflejando la búsqueda de formas libres, funcionales y expresivas que caracterizan el diseño escandinavo de mediados del siglo XX.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla12.jpg" alt="Silla Swan" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Silla Swan</figcaption>
+        <div class="overlay">Compañera de la Egg, también diseñada para el SAS Royal Hotel. A diferencia de aquella, la Swan es abierta, fluida y expansiva. Sus curvas suaves evocan el movimiento de un cisne, y su carcasa de espuma moldeada garantiza comodidad sin rigidez.
+La estructura giratoria de aluminio y el tapizado continuo refuerzan la idea de unidad. Sentarse en ella es experimentar ligereza y libertad de movimiento. Es una oda al diseño orgánico y sensual del modernismo nórdico.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla13.jpg" alt="Silla Wishbone" class="expandible"style="width:100%; height:250px; object-fit:cover; border-radius:10px;">
+        <figcaption>Silla Wishbone</figcaption>
+        <div class="overlay">La silla Wishbone, diseñada por Hans J. Wegner en los años 50, es una de las piezas más representativas del diseño escandinavo. Su estructura de madera de haya, combinada con un asiento trenzado de cuerda de papel, ofrece una estética elegante y una comodidad excepcional. Fabricada por Carl Hansen & Søn, la silla sigue siendo producida con técnicas artesanales que garantizan su calidad y durabilidad. Disponible en diversos acabados y colores, la silla Wishbone se adapta a diferentes estilos de interiores, aportando un toque de sofisticación y funcionalidad.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/silla14.jpg" alt="Silla Round" class="expandible" style="width:100%; height:250px; object-fit:cover; border-radius:10px;"> 
+        <figcaption>Silla Round</figcaption>
+        <div class="overlay">La Round Chair, también conocida como The Chair, es una de las piezas más emblemáticas del diseño danés moderno. Diseñada por Hans J. Wegner en 1949, esta silla destaca por su estructura de madera curvada y su asiento trenzado, fusionando estética y funcionalidad. Su diseño minimalista y elegante refleja la filosofía de la carpintería danesa, caracterizada por la simplicidad y la calidad. La Round Chair ganó notoriedad internacional cuando fue utilizada en el primer debate presidencial televisado de Estados Unidos en 1960, donde John F. Kennedy y Richard Nixon se sentaron en ella, lo que consolidó su estatus como un ícono del diseño.</div>
+      </figure>
+  </div>
+</section>
+
+<!-- ARQUITECTURA -->
+<section id="arquitectura">
+  <div class="text">
+    <h2>Arquitectura</h2>
+    <p>La arquitectura de los años 50 reflejó optimismo, innovación y funcionalidad. Se impusieron líneas simples, fachadas despejadas y estructuras que combinaban hormigón, acero y vidrio, buscando luminosidad y espacios abiertos. Edificios y viviendas se pensaban para la vida moderna: confortables, prácticos y conectados con la tecnología de la época.</p>
+    <span class="ver-mas-btn" data-target="arq">Ver más</span>
+  </div>
+
+  <div class="contenido" id="arq">
+    <div class="card">
+      <figure>
+        <img src="imagenes/arqui1.jpg" alt="Grattacielo Pirelli – Gio Ponti (Milán, 1956–1960, Italia)" class="expandible">
+        <figcaption>Grattacielo Pirelli – Gio Ponti (Milán,Italia)</figcaption>
+        <div class="overlay">La Torre Pirelli (Grattacielo Pirelli), diseñada por Gio Ponti con la colaboración de Pier Luigi Nervi y otros arquitectos, es un ícono del racionalismo italiano situado en Milán. Construida entre 1956 y 1960 para la empresa Pirelli, alcanza 127 metros de altura y cuenta con 31 plantas. Su estructura de hormigón armado, innovadora para su época, combina elegancia y rigor técnico. En 1977 pasó a ser sede de la Región de Lombardía. Considerada símbolo del Milán moderno, inspiró edificios como el Pan Am Building en Nueva York y destaca por su planta esbelta, sus pilares ahusados y su mirador panorámico en el piso 32.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/arqui3.jpg" alt="Concattedrale Gran Madre di Dio en Taranto" class="expandible">
+        <figcaption>Concattedrale Gran Madre di Dio (Taranto)</figcaption>
+        <div class="overlay">La Concattedrale Gran Madre di Dio en Taranto, diseñada por Gio Ponti entre 1967 y 1970, es un ícono de la arquitectura moderna religiosa en Italia. Destaca por su diseño innovador, con una estructura que evoca una vela de concreto perforado, integrada con la luz natural y el entorno marítimo. Su interior combina nave amplia, columnas estilizadas y ventanas hexagonales, reforzando la conexión simbólica con el mar y el cielo. Encargada durante la expansión urbana de Taranto, la catedral refleja la visión de Ponti de fusionar arquitectura, naturaleza y espiritualidad, aunque actualmente requiere preservación debido al deterioro.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/arqui2.jpg" alt="Mansión Planchart" class="expandible">
+        <figcaption>Mansión Planchart (Caracas)</figcaption>
+        <div class="overlay">La Mansión Planchart, diseñada por Gio Ponti entre 1953 y 1957 en Caracas, es una de las obras más destacadas del modernismo italiano en América Latina. Concebida como una obra total, integra arquitectura, mobiliario y diseño en un conjunto armónico.
+Ubicada en una colina con vistas a la ciudad, su planta en forma de mariposa y sus amplios ventanales conectan los espacios interiores con el paisaje tropical. Con materiales claros y formas ligeras, la casa expresa la búsqueda de luminosidad, elegancia y equilibrio característica de Ponti.</div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- INTERIORISMO -->
+<section id="interiorismo">
+  <div class="text">
+    <h2>Interiorismo</h2>
+    <p>En los años 50, los espacios buscaban comodidad, funcionalidad y modernidad, dejando atrás las reglas conservadoras de las décadas anteriores.
+Se impusieron las formas simples, los colores vibrantes y los materiales pulidos y livianos, inspirados en la tecnología, el futuro y la vida moderna.
+El interiorismo se convirtió en símbolo del “American way of life”, con hogares confortables, cocinas equipadas y mobiliario pensado para disfrutar la vida cotidiana.</p>
+    <span class="ver-mas-btn" data-target="eq">Ver más</span>
+  </div>
+
+  <div class="contenido" id="eq">
+    <div class="card">
+      <figure>
+        <img src="imagenes/int1.jpg" alt="Hotel Parco dei Principi–Gio Ponti (Sorrento, 1960, Italia)" class="expandible">
+        <figcaption>Hotel Parco dei Principi–Gio Ponti (Sorrento, 1960, Italia)</figcaption>
+        <div class="overlay">El Hotel Parco dei Principi en Sorrento (1960-1962) es una obra destacada de Gio Ponti, considerado un “hotel de diseño” por su enfoque integral: arquitectura, interiores y mobiliario. Está ubicado sobre un terreno histórico y se integra armoniosamente con la costa de Sorrento, combinando colores y formas naturales con elementos artísticos y cerámicos locales.
+Destacan sus azulejos geométricos en tonos azules y blancos, la piscina de agua salada con jardines y los muebles diseñados por Ponti, realizados por artesanos italianos. Fue restaurado en 2002 para recuperar su diseño original, y en 2012 se inauguró un recorrido museográfico para mostrar su obra.
+Su relevancia radica en la fusión de arquitectura, arte y naturaleza, convirtiéndose en un referente del diseño moderno italiano.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/int2.jpg" alt="Eames House—Charles y Ray Eames (Pacific Palisades, California, EE.UU-1949)." class="expandible">
+        <figcaption>Eames House—Charles y Ray Eames (Pacific Palisades, California, EE.UU-1949).</figcaption>
+        <div class="overlay">La Eames House (Case Study House N.º 8), diseñada en 1949 por Charles y Ray Eames, forma parte del programa que buscaba crear viviendas modernas y accesibles tras la Segunda Guerra Mundial.
+Construida con estructura metálica prefabricada y paneles de vidrio y colores industriales, representa la innovación técnica y estética de la época. Está compuesta por dos volúmenes —vivienda y estudio— separados por un patio, integrándose con el paisaje natural.
+En su interior, los Eames crearon un espacio luminoso, funcional y lleno de objetos personales, donde conviven arte, diseño y vida cotidiana. Esta casa refleja un modernismo cálido y humano, símbolo de la unión entre creatividad, trabajo y naturaleza.</div>
+      </figure>
+    </div>
+    <div class="card">
+      <figure>
+        <img src="imagenes/int3.jpg" alt="Casa Ponti (Via Dezza, Milán-1957)" class="expandible">
+        <figcaption>Casa Ponti (Via Dezza, Milán-1957)</figcaption>
+        <div class="overlay">La Casa Ponti, diseñada por Gio Ponti en 1957, fue concebida como residencia y estudio, reflejando su visión de un hogar que integra vida, trabajo y creatividad. La vivienda presenta espacios abiertos y fluidos, con una circulación natural que conecta salas, estudio y áreas privadas, permitiendo la entrada de abundante luz natural.
+Los materiales, como madera, cerámica y vidrio, junto con elementos modulares, crean un ambiente cálido, armonioso y flexible. El interior combina mobiliario funcional, objetos artísticos y detalles decorativos, mostrando un equilibrio entre estética y confort.
+La casa ejemplifica la filosofía de Ponti de un modernismo humanizado, donde cada elemento contribuye al bienestar de sus habitantes y fomenta la creatividad y la vida cotidiana dentro del hogar.</div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <span>&times;</span>
+  <img src="" alt="Imagen ampliada">
+</div>
+
+<footer style="background: #111; color: #fff; text-align: center; padding: 40px 20px;">
+  <p style="margin-bottom: 25px;">
+    Proyecto académico — Historia del Diseño 2 "D" · Década del 50 
+    · Profesores: CAPELLINO, Oscar - TREVISOL, Karina 
+    · Integrantes: CAPARROZ, Paulina - DE LA FUENTE, Valentina - ENRICI, Camila - LOPEZ, Ailen.
+  </p>
+
+  <!-- LOGOS -->
+  <div style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
+    <img src="imagenes/logo1.jpg" alt="Logo 1" style="height: 60px;">
+    <img src="imagenes/logo2.png" alt="Logo 2" style="height: 60px;">
+    <img src="imagenes/logo3.jpg" alt="Logo 3" style="height: 60px;">
+  </div>
+</footer>
+
+
+<script>
+// Scroll suave navbar
+document.querySelectorAll('nav a, .hero-content a').forEach(link=>{
+  link.addEventListener('click', e=>{
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    target.scrollIntoView({behavior:'smooth'});
+  });
+});
+
+// Ver más botones
+document.querySelectorAll('.ver-mas-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById(btn.dataset.target);
+    target.classList.toggle('show');
+    if(target.classList.contains('show')){
+      setTimeout(()=>target.scrollIntoView({behavior:'smooth'}),200);
+    }
+  });
+});
+
+// Lightbox funcionalidad
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+const closeBtn = lightbox.querySelector('span');
+
+document.querySelectorAll('.expandible').forEach(img => {
+  img.addEventListener('click', () => {
+    lightboxImg.src = img.src;
+    lightbox.style.display = 'flex';
+  });
+});
+closeBtn.addEventListener('click', () => lightbox.style.display = 'none');
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) lightbox.style.display = 'none';
+});
+</script>
+
+</body>
+</html>
